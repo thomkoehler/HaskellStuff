@@ -1,5 +1,6 @@
 module Main where
 
+import qualified ScottyTest
+
 main :: IO ()
-main = do
-  putStrLn "hello world"
+main = ScottyTest.main
