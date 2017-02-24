@@ -3,7 +3,7 @@
 
 module BookData(allUsers) where
 
-import BookModels
+import BookDataModels
 
 
 allUsers :: [User]

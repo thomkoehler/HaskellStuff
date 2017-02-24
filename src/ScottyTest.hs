@@ -8,7 +8,7 @@ import Network.Wai.Middleware.HttpAuth
 import Data.SecureMem
 
 import BookData
-import BookModels
+import BookDataModels
 
 pwd :: SecureMem
 pwd = secureMemFromByteString "password"
