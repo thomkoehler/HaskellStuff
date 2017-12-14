@@ -1,6 +1,6 @@
 module Main where
 
-import qualified ScottyTest
+import qualified TypeStuff
 
 main :: IO ()
-main = ScottyTest.main
+main = TypeStuff.test

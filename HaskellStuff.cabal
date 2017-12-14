@@ -34,4 +34,6 @@ executable HaskellStuff
     BookModels,
     BookData,
     BookDataModels,
-    BookType
+    BookType,
+    TypeStuff,
+    CallByNeed
