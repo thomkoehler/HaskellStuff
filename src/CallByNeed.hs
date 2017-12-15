@@ -1,5 +1,5 @@
 
-module CallByNeed where
+module CallByNeed(test1) where
 
 import Data.IORef
 import Data.Maybe

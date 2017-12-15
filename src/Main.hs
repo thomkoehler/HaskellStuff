@@ -1,6 +1,7 @@
 module Main where
 
 import qualified TypeStuff
+import qualified CallByNeed
 
 main :: IO ()
-main = TypeStuff.test
+main = CallByNeed.test1
