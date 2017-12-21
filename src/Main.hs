@@ -4,4 +4,6 @@ import qualified TypeStuff
 import qualified CallByNeed
 
 main :: IO ()
-main = CallByNeed.test1
+main = do
+  _ <- CallByNeed.test1
+  return ()

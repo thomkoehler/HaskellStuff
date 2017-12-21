@@ -9,9 +9,15 @@ import Text.Printf
 type Name = String
 
 data Value
-  = VInt Integer
+  = VInt Int
   | VBool Bool
   | VClosure (Thunk -> IO Value)
+
+
+instance Show Value where
+  show (VInt v) = "VInt " ++ (show v)
+  show (VBool b) = "VBool " ++ (show b)
+  show (VClosure _) = "VClosure"
 
 
 data Expr
@@ -34,7 +40,7 @@ data PrimOp
 type Thunk = () -> IO Value
 
 
-type Env = [(String, Value)]
+type Env = [(String, IORef Thunk)]
 
 
 update :: IORef Thunk -> Value -> IO ()
@@ -60,9 +66,8 @@ mkThunk env x body = \th -> do
 eval :: Env -> Expr -> IO Value
 eval env ex = case ex of
   EVar n -> do
-    th <- fromMaybe (error (printf "Var %s not found." n)) $ lookup n env
-    v <- force th
-    return v
+    let ref = fromMaybe (error (printf "Var %s not found." n)) $ lookup n env
+    force ref
 
   ELam x e -> return $ VClosure (mkThunk env x e)
 
@@ -79,5 +84,7 @@ omega :: Expr
 omega = EApp (ELam "x" (EApp (EVar "x") (EVar "x")))
              (ELam "x" (EApp (EVar "x") (EVar "x")))
 
-test1 :: IO Value
-test1 = eval [] $ EApp (ELam "y" (EInt 42)) omega
+test1 :: IO ()
+test1 = do
+  res <- eval [] $ EApp (ELam "y" (EInt 42)) omega
+  print res
