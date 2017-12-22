@@ -48,7 +48,13 @@ eval env ex = case ex of
   EBool b -> return $ VBool b
   EInt n  -> return $ VInt n
   EFix e  -> eval env (EApp e (EFix e))
-  -- TODO EPrim primOp left right ->
+  EPrim primOp expr0 expr1 -> do
+    v0 <- eval env expr0
+    v1 <- eval env expr1
+    case primOp of
+      Add -> return $ VInt $ toInt v0 + toInt v1
+      Mul -> return $ VInt $ toInt v0 * toInt v1
+
 
 
 omega :: Expr
