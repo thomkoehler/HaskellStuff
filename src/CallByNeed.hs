@@ -1,53 +1,23 @@
 
+{-# LANGUAGE RankNTypes #-}
+
 module CallByNeed(test1) where
 
 import Data.IORef
 import Data.Maybe
 import Text.Printf
 
-
-type Name = String
-
-data Value
-  = VInt Int
-  | VBool Bool
-  | VClosure (Thunk -> IO Value)
-
-
-instance Show Value where
-  show (VInt v) = "VInt " ++ (show v)
-  show (VBool b) = "VBool " ++ (show b)
-  show (VClosure _) = "VClosure"
-
-
-data Expr
-  = EVar Name
-  | ELam Name Expr
-  | EApp Expr Expr
-  | EInt Int
-  | EBool Bool
-  | EPrim PrimOp Expr Expr
-  | EFix Expr
-  deriving(Show)
-
-
-data PrimOp
-  = Add
-  | Mul
-  deriving(Show)
-
-
-type Thunk = () -> IO Value
+import Expr
+import Value
+import Parser
 
 
 type Env = [(String, IORef Thunk)]
-
 
 update :: IORef Thunk -> Value -> IO ()
 update ref v = do
   writeIORef ref (\() -> return v)
   return ()
-
 
 force :: IORef Thunk -> IO Value
 force ref = do
@@ -58,7 +28,7 @@ force ref = do
 
 
 mkThunk :: Env -> String -> Expr -> (Thunk -> IO Value)
-mkThunk env x body = \th -> do
+mkThunk env x body th = do
   th' <- newIORef th
   eval ((x, th') : env) body
 
@@ -78,6 +48,7 @@ eval env ex = case ex of
   EBool b -> return $ VBool b
   EInt n  -> return $ VInt n
   EFix e  -> eval env (EApp e (EFix e))
+  -- TODO EPrim primOp left right ->
 
 
 omega :: Expr
@@ -86,5 +57,7 @@ omega = EApp (ELam "x" (EApp (EVar "x") (EVar "x")))
 
 test1 :: IO ()
 test1 = do
-  res <- eval [] $ EApp (ELam "y" (EInt 42)) omega
+  let expr = parseExpr "(\\x -> (\\y -> x + y)) 3 4"
+  res <- eval [] expr
+  -- res <- eval [] $ EApp (ELam "y" (EInt 42)) omega
   print res
