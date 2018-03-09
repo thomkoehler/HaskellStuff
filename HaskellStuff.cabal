@@ -45,4 +45,6 @@ executable HaskellStuff
     Lexer,
     Parser,
     Value,
-    Expr
+    Expr,
+    RedBlackTree,
+    Fixpoint
