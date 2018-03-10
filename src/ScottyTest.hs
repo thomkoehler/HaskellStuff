@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module ScottyTest(main) where
+module ScottyTest(test) where
 
 import Web.Scotty
 import Data.Monoid (mconcat)
@@ -13,7 +13,7 @@ import BookDataModels
 pwd :: SecureMem
 pwd = secureMemFromByteString "password"
 
-main :: IO ()
-main = scotty 3000 $ do
+test :: IO ()
+test = scotty 3000 $ do
   middleware $ basicAuth (\u p -> return $ u == "user" && secureMemFromByteString p == pwd) "HaskellStuff"
   get "/users" $ json allUsers
