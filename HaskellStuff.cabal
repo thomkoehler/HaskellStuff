@@ -27,11 +27,14 @@ executable HaskellStuff
     aeson >= 1.1.2.0 && < 1.2,
     persistent >= 2.6 && < 3,
     persistent-template >= 2.5.1.6 && < 2.6,
-    time >= 1.6.0.1 && < 1.7
+    time >= 1.6.0.1 && < 1.7,
+    template-haskell -any
 
   other-modules:
     ScottyTest,
     BookModels,
     BookData,
     BookDataModels,
-    BookType
+    BookType,
+    Templates,
+    TemplatesTest
