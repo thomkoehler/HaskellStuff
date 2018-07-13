@@ -1,20 +1,38 @@
 
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE PolyKinds #-}
 
-module TypeStuff(test) where
+module TypeStuff where
 
-class TypeStr a where
-  typeStr :: a -> String
+data LockState 
+  = Unlocked
+  | Locked
 
-instance TypeStr Int where
-  typeStr _ = "Int"
+newtype Lock (s :: LockState) = Lock
+  {
+    getLockId :: Int
+  }
 
-instance TypeStr (Maybe a) where
-  typeStr _ = "Maybe"
+newLock :: IO (Lock 'Unlocked)
+newLock = undefined
+
+withLock :: Lock 'Unlocked -> (Lock 'Locked -> IO a) -> IO a
+withLock = undefined
+
+type family (x :: Bool) <!!> (y :: Bool) :: Bool where
+  'True <!!> y = 'True
+  'False <!!> y = y
+
+data (a :: k1) :<< (b :: k2)
+infixr 5 :<<
+
+class HasPrintf a where
+  type Printf a :: *
+
 
 
 test :: IO ()
-test = do
-  print $ typeStr (1 :: Int)
-  print $ typeStr $ Just '1'
-  print $ typeStr Nothing
+test = putStrLn "Hello World"
