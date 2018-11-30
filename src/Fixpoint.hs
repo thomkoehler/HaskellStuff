@@ -1,7 +1,7 @@
 
 module Fixpoint where
 
-import Prelude hiding(sum)
+import Prelude
 
 fix :: (a -> a) -> a
 fix f = f $ fix f
