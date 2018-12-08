@@ -32,4 +32,5 @@ executable HaskellStuff
     TypeStuff,
     RedBlackTree,
     Fixpoint,
-    RunQ
+    RunQ,
+    DepTypes
