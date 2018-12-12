@@ -52,6 +52,13 @@ data SNat n where
   SZ :: SNat Z
   SS :: SNat n -> SNat (S n)
 
+infixl 6 :+
+
+(%:+) :: SNat n -> SNat m -> SNat (n :+ m)
+SZ %:+ m = m
+SS n %:+ m = SS (n %:+ m)
+
+
 replicate :: SNat n -> a -> Vector a n
 replicate SZ _ = Nil
 replicate (SS n) x = x :- replicate n x
@@ -59,6 +66,10 @@ replicate (SS n) x = x :- replicate n x
 fromList :: SNat n -> [a] -> Vector a n
 fromList SZ _ = Nil
 fromList (SS n) (x:xs) = x :- fromList n xs
+
+zipWithSame :: (a -> b -> c) -> Vector a n -> Vector b n -> Vector c n
+zipWithSame _ Nil Nil = Nil
+zipWithSame fun (x :- xs) (y :- ys) = fun x y :- zipWithSame fun xs ys
 
 data SBool b where
   STrue  :: SBool True
