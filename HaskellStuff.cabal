@@ -28,9 +28,13 @@ executable HaskellStuff
     time >= 1.8 && < 1.9,
     array >= 0.5 && < 0.6
 
+  c-sources: 
+    src/fun.c
+
   other-modules:
     TypeStuff,
     RedBlackTree,
     Fixpoint,
     RunQ,
-    DepTypes
+    DepTypes,
+    Fun
