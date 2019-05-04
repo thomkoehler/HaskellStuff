@@ -37,4 +37,5 @@ executable HaskellStuff
     Fixpoint,
     RunQ,
     DepTypes,
-    Fun
+    Fun,
+    FreeMonad

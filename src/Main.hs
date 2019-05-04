@@ -6,4 +6,4 @@ import qualified DepTypes
 import qualified Fun
 
 main :: IO ()
-main = Fun.test
+main = RunQ.printInstance2
