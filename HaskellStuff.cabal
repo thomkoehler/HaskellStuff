@@ -33,4 +33,6 @@ executable HaskellStuff
     RedBlackTree,
     Fixpoint,
     RunQ,
-    DepTypes
+    DepTypes,
+    FreeMonad,
+    ExpressionProblem
