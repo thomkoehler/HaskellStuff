@@ -51,7 +51,6 @@ data SNat n where
   SZ :: SNat Z
   SS :: SNat n -> SNat (S n)
 
-infixl 6 :+
 
 (%:+) :: SNat n -> SNat m -> SNat (n :+ m)
 SZ %:+ m = m
