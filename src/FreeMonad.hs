@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-
-module FreeMonad where
-
-data Toy next
-  = Output String next
-  | Bell next
-  | Done
-
-newtype Fix f = Fix (f (Fix f))
-=======
 module FreeMonad where
 
 data Toy b next
@@ -29,4 +18,3 @@ instance Functor (Toy b) where
     fmap f (Output x next) = Output x (f next)
     fmap f (Bell next) = Bell (f next)
     fmap _ Done = Done
->>>>>>> 5a5681bbee02aa3fa8262f1714a20f6846bab53f

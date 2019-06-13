@@ -40,11 +40,9 @@ executable HaskellStuff
     Fixpoint,
     RunQ,
     DepTypes,
-<<<<<<< HEAD
     FreeMonad,
     ExpressionProblem
-=======
     Fun,
     FreeMonad,
-    VinylTest
->>>>>>> 5a5681bbee02aa3fa8262f1714a20f6846bab53f
+    VinylTest,
+    ServantTypes
