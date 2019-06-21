@@ -49,6 +49,9 @@ instance Show (Attr Master) where show (Attr x) = "master: " ++ show x
 (=::) :: sing f -> ElF f -> Attr f
 _ =:: x = Attr x
 
+-- wakeUp :: (Sleeping ∈ fields) => Rec Attr fields -> Rec Attr fields
+-- wakeUp = rput $ SSleeping =:: False
+
 test :: IO ()
 test = do
     let jon = (SName =:: "jon") :& (SAge =:: 23) :& (SSleeping =:: False) :& RNil

@@ -42,4 +42,5 @@ executable HaskellStuff
     DepTypes,
     Fun,
     FreeMonad,
-    VinylTest
+    VinylTest,
+    SingletonTest
