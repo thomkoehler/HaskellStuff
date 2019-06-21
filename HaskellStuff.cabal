@@ -45,5 +45,4 @@ executable HaskellStuff
     Fun,
     FreeMonad,
     VinylTest,
-    SingletonTest
     ServantTypes
