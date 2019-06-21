@@ -14,7 +14,6 @@ data Nat
   = Z
   | S Nat
 
-infixl 6 :+
 infixl 7 :*
 
 type family (n :: Nat) :+ (m :: Nat) :: Nat

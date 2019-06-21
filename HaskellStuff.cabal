@@ -40,7 +40,10 @@ executable HaskellStuff
     Fixpoint,
     RunQ,
     DepTypes,
+    FreeMonad,
+    ExpressionProblem
     Fun,
     FreeMonad,
     VinylTest,
     SingletonTest
+    ServantTypes
