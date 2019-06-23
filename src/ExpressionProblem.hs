@@ -1,4 +1,6 @@
 
+{-# LANGUAGE DatatypeContexts #-}
+
 module ExpressionProblem where
 
 newtype Lit = Lit Int

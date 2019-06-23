@@ -7,4 +7,4 @@ import qualified Fun
 import qualified VinylTest
 
 main :: IO ()
-main = VinylTest.test
+main = DepTypes.test

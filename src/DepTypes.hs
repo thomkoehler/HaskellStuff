@@ -1,12 +1,17 @@
 
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE FunctionalDependencies #-}
 
-module DepTypes(test) where
+
+module DepTypes where
 
 import Prelude hiding(head, tail, replicate)
 
@@ -77,6 +82,37 @@ data BTree a
   = Node a
   | BTree (BTree a) (BTree a)
 
+
+-----------------------------------------------------------------------------------
+type family EverInt n
+type instance EverInt Int = Int
+type instance EverInt Integer = Int
+
+
+data (a :: k) :~: (b :: k) where
+  Refl :: a :~: a
+
+data (a :: k) :~~: (b :: k) where
+  Refl' :: (a ~ b) => a :~~: b
+  
+
+castWith :: (a :~: b) -> a -> b
+castWith Refl x = x
+
+higherRank :: (forall a. a -> a) -> (Bool, Char)
+higherRank f = (f True, f 'x')
+
+
+foldl2 :: forall a b. (b -> a -> b) -> b -> [a] -> b
+foldl2 f = lgo
+  where
+    lgo :: b -> [a] -> b
+    lgo z [] = z
+    lgo z (x : xs) = lgo (f z x) xs
+
+class Pred (a :: Nat) (b :: Nat) | a -> b
+
+-----------------------------------------------------------------------------------
 
 
 test :: IO ()
