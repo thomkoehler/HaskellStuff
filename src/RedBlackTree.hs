@@ -36,3 +36,10 @@ data Node :: RedBlack -> Nat -> * -> * where
   
 deriving instance Show a => Show (Node c n a)
 
+
+leaf = Leaf 
+redNode = R leaf "RED" leaf 
+blackNode = B redNode "BLACK" leaf
+
+-- Couldn't match type 'Red with 'Black
+-- redNodeError = R redNode "ERROR" blackNode

@@ -9,11 +9,14 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE LambdaCase #-}
 
 
 module DepTypes where
 
 import Prelude hiding(head, tail, replicate)
+import Data.Kind
 
 data Nat 
   = Z
@@ -40,6 +43,7 @@ deriving instance Show a => Show (Vector a n)
 
 toList :: Vector a n -> [a]
 toList Nil = []
+
 toList (x :- xs) = x : toList xs
 
 head :: Vector a (S n) -> a
@@ -84,33 +88,59 @@ data BTree a
 
 
 -----------------------------------------------------------------------------------
-type family EverInt n
-type instance EverInt Int = Int
-type instance EverInt Integer = Int
+
+type family Cond (b :: Bool) t e where
+  Cond 'True t e = t
+  Cond 'False t e = e
+
+type family a :=: b where
+  a :=: a = 'True
+  _ :=: _ = 'False
+
+item :: SBool b -> Cond b Int String
+item STrue = 1
+item SFalse = "Hello"
+
+-----------------------------------------------------------------------------------
+
+data DoorState 
+  = Opened
+  | Closed
+  | Locked
+  deriving(Show, Eq)
+
+ 
+-- data Door (s :: DoorState) = UnsafeMkDoor { doorMaterial :: String }
+data Door :: DoorState -> Type where
+  UnsafeMkDoor :: String -> Door s
+  deriving Show
 
 
-data (a :: k) :~: (b :: k) where
-  Refl :: a :~: a
+closeDoor :: Door 'Opened -> Door 'Closed
+closeDoor (UnsafeMkDoor m) = UnsafeMkDoor m
 
-data (a :: k) :~~: (b :: k) where
-  Refl' :: (a ~ b) => a :~~: b
-  
+lockDoor :: Door 'Closed -> Door 'Locked
+lockDoor (UnsafeMkDoor m) = UnsafeMkDoor m
 
-castWith :: (a :~: b) -> a -> b
-castWith Refl x = x
+openDoor :: Door 'Closed -> Door 'Opened
+openDoor (UnsafeMkDoor m) = UnsafeMkDoor m
 
-higherRank :: (forall a. a -> a) -> (Bool, Char)
-higherRank f = (f True, f 'x')
+data SDoorState :: DoorState -> Type where
+  SOpened :: SDoorState 'Opened
+  SClosed :: SDoorState 'Closed
+  SLocked :: SDoorState 'Locked
+
+lockAnyDoor :: SDoorState s -> Door s -> Door 'Locked
+lockAnyDoor = \case
+    SOpened -> lockDoor . closeDoor
+    SClosed -> lockDoor
+    SLocked -> id
 
 
-foldl2 :: forall a b. (b -> a -> b) -> b -> [a] -> b
-foldl2 f = lgo
-  where
-    lgo :: b -> [a] -> b
-    lgo z [] = z
-    lgo z (x : xs) = lgo (f z x) xs
-
-class Pred (a :: Nat) (b :: Nat) | a -> b
+doorStatus :: SDoorState s -> Door s -> DoorState
+doorStatus SOpened _ = Opened
+doorStatus SClosed _ = Closed
+doorStatus SLocked _ = Locked
 
 -----------------------------------------------------------------------------------
 
@@ -123,4 +153,5 @@ test = do
   print $ replicate (SS (SS (SS (SS SZ)))) 4
   print $ fromList (SS (SS (SS (SS SZ)))) [1, 2, 3,4]
   -- type error print $ head Nil
+
   return ()
