@@ -30,7 +30,8 @@ executable HaskellStuff
     vinyl -any,
     singletons -any,
     doctest -any,
-    binary -any
+    binary -any,
+    unordered-containers -any
 
   c-sources: 
     src/fun.c
