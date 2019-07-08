@@ -1,7 +1,8 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell   #-}
+{-# LANGUAGE RankNTypes   #-}
+{-# LANGUAGE GADTs   #-}
 
 module ConfReader where
 
@@ -13,6 +14,8 @@ import           Data.HashMap.Strict
 import           Data.Text
 import qualified Data.Text           as T
 import           GHC.Generics        as G
+import qualified Text.Megaparsec as Megaparsec
+import Data.Void
 
 data Config = Config
     { 
@@ -56,3 +59,20 @@ valueToText Null            = error "Null value is not supported"
 
 valueToConfEntry :: (T.Text, Value) -> T.Text
 valueToConfEntry (name, value) = T.concat [name, " = ", valueToText value]
+
+
+type Parser = Megaparsec.Parsec Void T.Text
+
+data ConfigOption c = forall a. ConfigOption
+    {
+        reader :: ConfReader.Parser a,
+        readerLens :: Lens' c a
+    }
+
+changeConfig :: T.Text -> c -> ConfigOption c -> c
+changeConfig text config (ConfigOption oReader oLens) = 
+    case ethValue of
+      Left err -> error "Error"
+      Right value -> set oLens value config
+    where
+        ethValue = Megaparsec.parse oReader "" text

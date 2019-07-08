@@ -31,7 +31,8 @@ executable HaskellStuff
     singletons -any,
     doctest -any,
     binary -any,
-    unordered-containers -any
+    unordered-containers -any,
+    megaparsec -any
 
   c-sources: 
     src/fun.c
