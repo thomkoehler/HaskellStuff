@@ -33,7 +33,8 @@ executable HaskellStuff
     binary -any,
     unordered-containers -any,
     transformers -any,
-    mtl -any
+    mtl -any,
+    megaparsec -any
 
   c-sources: 
     src/fun.c
