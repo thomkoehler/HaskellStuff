@@ -31,7 +31,9 @@ executable HaskellStuff
     singletons -any,
     doctest -any,
     binary -any,
-    unordered-containers -any
+    unordered-containers -any,
+    transformers -any,
+    mtl -any
 
   c-sources: 
     src/fun.c
@@ -45,7 +47,8 @@ executable HaskellStuff
     FreeMonad,
     ExpressionProblem
     Fun,
-    FreeMonad,
     VinylTest,
     ServantTypes,
-    ConfReader
+    ConfReader,
+    MonadStuff,
+    MonadStuff2
