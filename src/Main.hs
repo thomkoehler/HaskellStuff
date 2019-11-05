@@ -7,6 +7,7 @@ import qualified Fun
 import qualified VinylTest
 import qualified ConfReader
 import qualified MonadStuff2
+import qualified YampaTest
 
 main :: IO ()
-main = MonadStuff2.test
+main = YampaTest.test

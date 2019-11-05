@@ -34,7 +34,8 @@ executable HaskellStuff
     unordered-containers -any,
     transformers -any,
     mtl -any,
-    megaparsec -any
+    megaparsec -any,
+    Yampa -any
 
   c-sources: 
     src/fun.c
@@ -52,4 +53,5 @@ executable HaskellStuff
     ServantTypes,
     ConfReader,
     MonadStuff,
-    MonadStuff2
+    MonadStuff2,
+    YampaTest
