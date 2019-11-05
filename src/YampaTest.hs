@@ -26,7 +26,7 @@ cooling t0 = proc input -> do
 
 test1 :: IO ()
 test1 = do
-    print $ embed (cooling 80.0) (100.0, [])
+    print $ embed (cooling 10.0) ((), take 20 $ cycle [(1.0, Nothing)])
 
 
 test2 :: IO ()
