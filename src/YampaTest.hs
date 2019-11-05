@@ -19,24 +19,23 @@ test0 = do
     print $ embed (constant 77) sensorData
 
 
-cooling :: Float -> SF () (Float)
+cooling :: Float -> SF () Float
 cooling t0 = proc input -> do
     t0' <- integral >>^ (+ t0) -< -1
     returnA -< t0'
 
 test1 :: IO ()
-test1 = do
-    print $ embed (cooling 10.0) ((), take 20 $ cycle [(1.0, Nothing)])
+test1 = print $ embed (cooling 10.0) ((), take 20 $ cycle [(1.0, Nothing)])
 
 
 test2 :: IO ()
 test2 = reactimate 
     (return ())
     (\_ -> return (1.0, Nothing))
-    (\_ b -> (putStrLn $ show b) >> return False)
+    (\_ b -> (print b) >> return False)
     (coolingWithFloor 25.0)
 
-coolingWithFloor :: Double -> SF () (Double)
+coolingWithFloor :: Double -> SF () Double
 coolingWithFloor t0 = switch cooling' atRoomTemp
     where 
         cooling' = proc _ -> do
@@ -44,6 +43,6 @@ coolingWithFloor t0 = switch cooling' atRoomTemp
             e <- edge -< t' <= 18
             returnA -< (t', e `tag` t')
 
-        atRoomTemp _ = (constant 18)
+        atRoomTemp _ = constant 18
 
         cooling t0 = (constant (-1) >>> integral) >>^ (+ t0)
