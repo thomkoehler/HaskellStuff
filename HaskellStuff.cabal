@@ -1,57 +1,56 @@
-name:                HaskellStuff
-version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/githubuser/HaskellStuff#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
-category:            Web
-build-type:          Simple
-cabal-version:       >=1.10
-extra-source-files:  README.md
+cabal-version: >=1.10
+name: HaskellStuff
+version: 0.1.0.0
+license: BSD3
+license-file: LICENSE
+copyright: 2017 Author name here
+maintainer: example@example.com
+author: Author name here
+homepage: https://github.com/githubuser/HaskellStuff#readme
+category: Web
+build-type: Simple
+extra-source-files:
+    README.md
 
 executable HaskellStuff
-  hs-source-dirs:      src
-  main-is:             Main.hs
-  default-language:    Haskell2010
-  ghc-options:         -Wall -rtsopts -O2
-  build-depends:
-    base >= 4.7 && < 5,
-    text >= 1.2.2.1 && < 1.3,
-    securemem >= 0.1.9 && < 0.2,
-    lens -any,
-    aeson -any,
-    template-haskell -any,
-    time >= 1.8 && < 1.9,
-    array >= 0.5 && < 0.6,
-    vinyl -any,
-    singletons -any,
-    doctest -any,
-    binary -any,
-    unordered-containers -any,
-    transformers -any,
-    mtl -any,
-    megaparsec -any,
-    Yampa -any
-
-  c-sources: 
-    src/fun.c
-
-  other-modules:
-    TypeStuff,
-    RedBlackTree,
-    Fixpoint,
-    RunQ,
-    DepTypes,
-    FreeMonad,
-    ExpressionProblem
-    Fun,
-    VinylTest,
-    ServantTypes,
-    ConfReader,
-    MonadStuff,
-    MonadStuff2,
-    YampaTest
+    main-is: Main.hs
+    c-sources:
+        src/fun.c
+    hs-source-dirs: src
+    other-modules:
+        TypeStuff
+        RedBlackTree
+        Fixpoint
+        RunQ
+        DepTypes
+        FreeMonad
+        ExpressionProblem
+        Fun
+        VinylTest
+        ServantTypes
+        ConfReader
+        MonadStuff
+        MonadStuff2
+        YampaTest
+        Circuit
+    default-language: Haskell2010
+    ghc-options: -Wall -rtsopts -O2
+    build-depends:
+        base >=4.7 && <5,
+        text >=1.2.2.1 && <1.3,
+        securemem >=0.1.9 && <0.2,
+        lens -any,
+        aeson -any,
+        template-haskell -any,
+        time >=1.8 && <1.9,
+        array >=0.5 && <0.6,
+        vinyl -any,
+        singletons -any,
+        doctest -any,
+        binary -any,
+        unordered-containers -any,
+        transformers -any,
+        mtl -any,
+        megaparsec -any,
+        Yampa -any,
+        random -any

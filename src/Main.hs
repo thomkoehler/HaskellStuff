@@ -8,6 +8,7 @@ import qualified VinylTest
 import qualified ConfReader
 import qualified MonadStuff2
 import qualified YampaTest
+import qualified Circuit
 
 main :: IO ()
-main = YampaTest.test
+main = Circuit.test
