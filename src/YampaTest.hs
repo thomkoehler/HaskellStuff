@@ -8,7 +8,6 @@ import FRP.Yampa
 
 test = test1
 
-
 sensorData :: (Float, [(DTime, Maybe Float)])
 sensorData = (80.0, [(60.0, Just 74.6), (60.0, Just 68.9), (60.0, Just 61.5)])
 
@@ -18,7 +17,6 @@ test0 = do
     print $ embed identity sensorData
     print $ embed (constant 77) sensorData
 
-
 cooling :: Float -> SF () Float
 cooling t0 = proc input -> do
     t0' <- integral >>^ (+ t0) -< -1
@@ -26,7 +24,6 @@ cooling t0 = proc input -> do
 
 test1 :: IO ()
 test1 = print $ embed (cooling 10.0) ((), take 20 $ cycle [(1.0, Nothing)])
-
 
 test2 :: IO ()
 test2 = reactimate 
