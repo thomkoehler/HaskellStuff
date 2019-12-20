@@ -11,6 +11,7 @@ import qualified ConfReader
 import qualified MonadStuff2
 import qualified YampaTest
 import qualified Circuit
+import qualified Lenses
 
 
 mySum :: Num a => [a] -> a
@@ -48,4 +49,4 @@ main = do
     -- print $ mySumTR [0..9]
     -- print $ foldl (+) 0 [0..9]
     -- print $ foldr (+) 0 [0..9]
-    YampaTest.test
+    Lenses.test
