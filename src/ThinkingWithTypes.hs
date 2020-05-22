@@ -1,8 +1,10 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE GADTs #-}
 
-module ThinkingWithTypes(test) where
+module ThinkingWithTypes where
 
-import GHC.TypeLits
+-- import GHC.TypeLits
 
 test :: IO ()
 test = putStrLn "Hello ThinkingWithTypes"
@@ -44,14 +46,12 @@ exercise143From = curry
 -- MonadTrans :: ((* -> *) -> * -> *) -> Constraint
 
 
--- capture 3
-
-data Proxy a = Proxy
+-- data Proxy a = Proxy
 
 -- data UserType
 --     = TUser
 --     | TAdmin
---
+
 -- data User = User
 --     {
 --         userAdminToken :: Maybe (Proxy 'TAdmin)
@@ -61,3 +61,47 @@ data Proxy a = Proxy
 type family Or (x :: Bool) (y :: Bool) :: Bool where
     Or 'True y = 'True
     Or 'False y = y
+
+type family Not (x :: Bool) :: Bool where
+    Not 'True = 'False
+    Not 'False = 'True
+
+-- capture 3
+
+newtype T1 a = T1 (Int -> a)
+
+instance Functor T1 where
+    fmap f (T1 g) = T1 (f . g)
+
+
+newtype T5 a = T5 ((a -> Int) -> Int)
+
+-- TODO
+-- instance Functor T5 where
+--     fmap f (T5 g) = T5 (g . f)
+
+
+-- capture 5.2 GADTs
+
+data Expr a where
+    LitInt :: Int -> Expr Int
+    LitBool :: Bool -> Expr Bool
+    Add :: Expr Int -> Expr Int -> Expr Int
+    If :: Expr Bool -> Expr a -> Expr a -> Expr a
+
+evalExpr :: Expr a -> a 
+evalExpr (LitInt i) = i
+evalExpr (LitBool b) = b
+evalExpr (Add x y) = evalExpr x + evalExpr y
+evalExpr (If b x y) = if evalExpr b then evalExpr x else evalExpr y
+
+
+data Expr_ a
+    = (a ~ Int) => LitInt_ Int
+    | (a ~ Bool) => LitBool_ Bool
+    | (a ~ Int) =>   Add_ (Expr_ Int) (Expr_ Int)
+    | (a ~  Bool) =>   Not_ (Expr_ Bool)
+    | If_ (Expr_ Bool) (Expr_ a) (Expr_ a)
+
+evalExpr_ :: Expr_ a -> a
+evalExpr_ (LitInt_ i) = i
