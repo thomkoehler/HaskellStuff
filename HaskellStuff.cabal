@@ -56,4 +56,5 @@ executable HaskellStuff
         mtl -any,
         megaparsec -any,
         Yampa -any,
-        random -any
+        random -any,
+        ghc -any
