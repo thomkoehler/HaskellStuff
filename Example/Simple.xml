@@ -1,0 +1,16 @@
+﻿<?xml version ='1.0' encoding="UTF-8"?>
+<CMDB xmlns="http://schemas.realtech.com/dot4cmdb/2016" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.realtech.com/dot4cmdb/2016 dot4CMDB.xsd">
+
+	<CI type="Windows Workstation" id="1000">
+		<SLT AN="Name">Workstation1000</SLT>
+		<SLT AN="Hostname">Workstation1000</SLT>
+		<SLT AN="IP4">1.1.1.1</SLT>
+	</CI>
+	
+	<CI type="Windows Workstation" id="1001">
+		<SLT AN="Name">Workstation1000</SLT>
+		<SLT AN="Hostname">Workstation1001</SLT>
+		<SLT AN="IP4">1.1.1.2</SLT>
+	</CI>
+
+</CMDB>
