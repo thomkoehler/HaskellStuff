@@ -1,10 +1,18 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GADTs #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE TypeOperators #-}
+
 
 module ThinkingWithTypes where
 
 -- import GHC.TypeLits
+import Data.Typeable
+import Data.Kind(Constraint, Type)
 
 test :: IO ()
 test = putStrLn "Hello ThinkingWithTypes"
@@ -80,6 +88,10 @@ newtype T5 a = T5 ((a -> Int) -> Int)
 -- instance Functor T5 where
 --     fmap f (T5 g) = T5 (g . f)
 
+-- capture 4.3 Ambiguous Types and Non-Injectivity
+
+typename :: forall a. Typeable a => String
+typename = show . typeRep $ Proxy @a
 
 -- capture 5.2 GADTs
 
@@ -105,3 +117,21 @@ data Expr_ a
 
 evalExpr_ :: Expr_ a -> a
 evalExpr_ (LitInt_ i) = i
+
+-- exercice 5.3. HETEROGENEOUS LISTS
+
+data HList (ts :: [Type]) where
+    HNil :: HList '[]
+    (:#) :: t -> HList ts -> HList (t ': ts)
+
+infix 5 :#
+
+hLenght :: HList ts -> Int
+hLenght HNil = 0
+hLenght (_ :# ts) = 1 + hLenght ts
+
+hHead :: HList (t ': ts) -> t
+hHead (t :# _) = t
+
+showBool :: HList '[_1, Bool, _2] -> String
+showBool ( _ :# b :# _ :# HNil ) = show b 
