@@ -132,6 +132,3 @@ hLenght (_ :# ts) = 1 + hLenght ts
 
 hHead :: HList (t ': ts) -> t
 hHead (t :# _) = t
-
-showBool :: HList '[_1, Bool, _2] -> String
-showBool ( _ :# b :# _ :# HNil ) = show b 
