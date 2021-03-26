@@ -36,6 +36,7 @@ executable HaskellStuff
         Lenses
         ThinkingWithTypes
         StateMachine
+        HxtTest
         
     default-language: Haskell2010
     ghc-options: -Wall -rtsopts -O2
@@ -58,4 +59,5 @@ executable HaskellStuff
         megaparsec -any,
         Yampa -any,
         random -any,
+        hxt,
         ghc -any
