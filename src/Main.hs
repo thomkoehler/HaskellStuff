@@ -1,6 +1,6 @@
 module Main where
 
-import qualified HxtTest
+import qualified BlockChain
 
 main :: IO ()
-main = HxtTest.test
+main = BlockChain.test

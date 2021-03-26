@@ -13,7 +13,7 @@ import Data.Singletons
 import Data.Singletons.Prelude
 import Data.Singletons.TH
 import Data.Singletons.TypeLits
-import System.IO
+
 
 $(singletons [d|
   data DoorState = Opened | Closed
@@ -92,11 +92,5 @@ program =
   :>> Stop
   :>> Open
 
-badElevator :: ElevatorProgram 0 1
-badElevator =
-  Close
-  :>> Move SUp
-  -- Stop
-  :>> Open
 
 
