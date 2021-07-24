@@ -2,7 +2,7 @@
   FlexibleContexts, FlexibleInstances, FunctionalDependencies, GADTs, 
   InstanceSigs, LambdaCase, PartialTypeSignatures, PolyKinds, RankNTypes, 
   ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, 
-  TypeApplications, TypeFamilies, TypeOperators, UndecidableInstances #-}
+  TypeApplications, TypeFamilies, TypeOperators, UndecidableInstances, StandaloneKindSignatures #-}
 {-# OPTIONS_GHC -Werror=incomplete-patterns #-}
 {-# OPTIONS_GHC -fno-warn-unticked-promoted-constructors #-}
 

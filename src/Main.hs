@@ -1,6 +1,6 @@
 module Main where
 
-import qualified BlockChain
+import qualified VinylTest
 
 main :: IO ()
-main = BlockChain.test
+main = VinylTest.test
