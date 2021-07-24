@@ -5,11 +5,7 @@
 module Circuit(test) where
 
 import Control.Arrow
-import Control.Monad
 import qualified Control.Category as Cat
-import Data.List
-import Data.Maybe
-import System.Random
 
 newtype Circuit a b = Circuit 
     { 
@@ -59,6 +55,7 @@ total = accum' 0 (+)
 mean1 :: Fractional a => Circuit a a
 mean1 = (total &&& (const 1 ^>> total)) >>> arr (uncurry (/))
 
+mean2 :: Circuit Double Double
 mean2 = proc value -> do
     t <- total -< value
     n <- total -< 1

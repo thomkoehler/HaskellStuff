@@ -12,7 +12,7 @@ module ThinkingWithTypes where
 
 -- import GHC.TypeLits
 import Data.Typeable
-import Data.Kind(Constraint, Type)
+import Data.Kind(Type)
 
 test :: IO ()
 test = putStrLn "Hello ThinkingWithTypes"

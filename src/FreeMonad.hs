@@ -11,7 +11,7 @@ data FixE f e
     | Throw e
 
 catch :: (Functor f) => FixE f e1 -> (e1 -> FixE f e2) -> FixE f e2
-catch (Fix x) f   = Fix (fmap (flip catch f) x)
+catch (Fix x) f   = Fix (fmap (`catch` f) x)
 catch (Throw e) f = f e
 
 instance Functor (Toy b) where
